@@ -185,7 +185,7 @@ public class Karyawan extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(id_user, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nama_karyawan, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -217,7 +217,7 @@ public class Karyawan extends javax.swing.JFrame {
          // TODO add your handling code here:
          
          try {
-            Connection en = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
+            Connection en = DriverManager.getConnection("jdbc:mysql://localhost/db_apotek", "root", "");
             en.createStatement().executeUpdate("insert into tb_karyawan values" + "('" + id_karyawan.getText() + "','" + id_user.getText() + "','" + nama_karyawan.getText() + "','" + email.getText() + "','" + no_tlp.getText() + "','" + alamat.getText() + "')");
             tampilkan(); 
         } catch (SQLException ex) {
@@ -229,7 +229,7 @@ public class Karyawan extends javax.swing.JFrame {
     private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
         try {
             // TODO add your handling code here: 
-            Connection en = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
+            Connection en = DriverManager.getConnection("jdbc:mysql://localhost/db_apotek", "root", "");
             en.createStatement().executeUpdate("update into id_karyawan values" + "('" + id_user.getText() + "','" + nama_karyawan.getText() + "','" + email.getText() + "','" + no_tlp.getText() + "','" + alamat.getText() + "')");
             tampilkan();
         } catch (SQLException ex) {
@@ -254,7 +254,7 @@ public class Karyawan extends javax.swing.JFrame {
     private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
         // TODO add your handling code here:
         try {
-            Connection en = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
+            Connection en = DriverManager.getConnection("jdbc:mysql://localhost/db_apotek", "root", "");
             en.createStatement().executeLargeUpdate("delete from tb_karyawan where id_karyawan='" + id_karyawan.getText() + "'");
             tampilkan();
             reset();
@@ -275,7 +275,24 @@ public class Karyawan extends javax.swing.JFrame {
             no_tlp.setText("");
             alamat.setText("");
     }//GEN-LAST:event_btnresetActionPerformed
+    private void tampilkan() {
+        int row = table.getRowCount();
+        for (int a = 0; a < row; a++) {
+            model.removeRow(0);
+        }
+        try {
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/db_apotek", "root", "");
+            ResultSet rs = cn.createStatement().executeQuery("SELECT * FROM tb_karyawan");
+            while (rs.next()) {
+                String data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};
+                model.addRow(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Karyawan.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -333,23 +350,6 @@ public class Karyawan extends javax.swing.JFrame {
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 
-    private void tampilkan() {
-        int row = table.getRowCount();
-        for (int a = 0; a < row; a++) {
-            model.removeRow(0);
-        }
-        try {
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/apotek", "root", "");
-            ResultSet rs = cn.createStatement().executeQuery("SELECT * FROM tb_karyawan");
-            while (rs.next()) {
-                String data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};
-                model.addRow(data);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Karyawan.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
 
 }
 

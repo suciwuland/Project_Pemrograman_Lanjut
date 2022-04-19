@@ -28,7 +28,8 @@ public class connect {
     public static void main(String[] args) {
         try {
             Connection c = connect.getConnection();
-            System.out.println(String.format("Connected to database %s " + "successfully.", c.getCatalog()));
+            System.out.println(String.format("Connected to database %s " + 
+            "successfully.", c.getCatalog()));
         } catch (SQLException e) {
             System.out.println(e);
         }
