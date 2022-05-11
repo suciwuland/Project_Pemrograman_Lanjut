@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Lap extends javax.swing.JFrame {
     private DefaultTableModel  model;
@@ -175,7 +177,7 @@ public class Lap extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton1.setText("LAPORAN PEMBELIAN");
+        jToggleButton1.setText("Tambah");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton1ActionPerformed(evt);
@@ -258,10 +260,15 @@ public class Lap extends javax.swing.JFrame {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
         //go to halaman laporan pembelian
-        Pembelian pem =new Pembelian();
-        pem.setVisible(true);
-        pem.pack();
-        pem.setLocationRelativeTo(null);
+        Penjualan pen = null;
+        try {
+            pen = new Penjualan();
+        } catch (SQLException ex) {
+            Logger.getLogger(Lap.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        pen.setVisible(true);
+        pen.pack();
+        pen.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package GUI;
 import Code.connect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -481,7 +477,7 @@ public class Penjualan extends javax.swing.JFrame {
         String Total = txTotalBayar.getText();
         
         try {
-            Connection c = koneksi.getkoneksi();
+            Connection c = connect.getConnection();
             String sql = "INSERT INTO tb_transaksi (?, ?, ?, ?)";
             PreparedStatement p = c.prepareStatement(sql);
             p.setString(1, notransaksi);
@@ -495,7 +491,7 @@ public class Penjualan extends javax.swing.JFrame {
         }
         
         try {
-            Connection c = koneksi.getkoneksi();
+            Connection c = connect.getConnection();
             int baris = jTable.getRowCount();
             
             for (int i = 0; i <baris ; i++){
@@ -511,8 +507,16 @@ public class Penjualan extends javax.swing.JFrame {
             System.out.println("simpan transaksi rinci error");
         }
         clear();
-        utama();
-        autonumber();
+        try {
+            utama();
+        } catch (SQLException ex) {
+            Logger.getLogger(Penjualan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            autonumber();
+        } catch (SQLException ex) {
+            Logger.getLogger(Penjualan.class.getName()).log(Level.SEVERE, null, ex);
+        }
         kosong();
         txTampil.setText("Rp 0");
     }//GEN-LAST:event_btnSimpanActionPerformed
