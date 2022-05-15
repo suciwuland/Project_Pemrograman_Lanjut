@@ -9,16 +9,20 @@ package GUI;
  * @author ASUS
  */
 import Code.connect;
+import java.io.File;
 import java.sql.Connection;
-import java.sql.SQLException;
-import javax.swing.table.DefaultTableModel;
 import java.sql.PreparedStatement;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import java.sql.Statement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Lap extends javax.swing.JFrame {
     private DefaultTableModel  model;
@@ -239,7 +243,17 @@ public class Lap extends javax.swing.JFrame {
 
     private void CetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CetakActionPerformed
         // TODO add your handling code here:
-        
+        try{
+            HashMap pm = new HashMap();
+            Connection cn = connect.getConnection();
+            File file = new File("src\\Report\\report1.jasper");
+            JasperReport jr = (JasperReport) JRLoader.loadObject(file);
+            JasperPrint jp = JasperFillManager.fillReport(jr,pm,cn);
+            JasperViewer.viewReport(jp, false);
+            JasperViewer.setDefaultLookAndFeelDecorated(true);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Data Tidak dapat di Cetak!!"+"\n"+e.getMessage(),"Cetak Data",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_CetakActionPerformed
 
     private void CetakMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CetakMouseClicked
