@@ -8,8 +8,10 @@
  *
  * @author hp
  */
+import Code.connect;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,15 +19,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 public class Karyawan extends javax.swing.JFrame {
 
     /**
      * Creates new form Karyawan
      */
     DefaultTableModel model;
+    
     public Karyawan() {
         initComponents();
-        String[] judul = {"Id Karyawan","ID User","Nama Karyawan","Email","No Hp","Alamat"};
+        String[] judul = {"Id Karyawan","Id User","Nama Karyawan","Email","No Hp","Alamat"};
         model = new DefaultTableModel(judul, 0);
         table.setModel(model);
         tampilkan();
@@ -40,7 +44,6 @@ public class Karyawan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         id_karyawan = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -59,11 +62,10 @@ public class Karyawan extends javax.swing.JFrame {
         btnreset = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("DATA KARYAWAN");
 
         jLabel2.setText("Id Karyawan");
 
@@ -74,6 +76,12 @@ public class Karyawan extends javax.swing.JFrame {
         jLabel5.setText("Email");
 
         jLabel6.setText("No Hp");
+
+        no_tlp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                no_tlpActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Alamat");
 
@@ -123,60 +131,77 @@ public class Karyawan extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table);
 
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("DATA KARYAWAN");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(427, 427, 427))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel1)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 221, Short.MAX_VALUE)
+                .addGap(0, 244, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 665, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(168, 168, 168))
             .addGroup(layout.createSequentialGroup()
+                .addGap(323, 323, 323)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(323, 323, 323)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(116, 116, 116)
-                                .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(116, 116, 116)
-                                .addComponent(no_tlp, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(116, 116, 116)
-                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btntambah)
-                                .addGap(47, 47, 47)
-                                .addComponent(btnedit)
-                                .addGap(53, 53, 53)
-                                .addComponent(btnhapus)
-                                .addGap(48, 48, 48)
-                                .addComponent(btnreset))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(40, 40, 40)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(id_user, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(id_karyawan, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nama_karyawan, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116)
+                        .addComponent(alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(401, 401, 401)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116)
+                        .addComponent(no_tlp, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116)
+                        .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btntambah)
+                        .addGap(47, 47, 47)
+                        .addComponent(btnedit)
+                        .addGap(53, 53, 53)
+                        .addComponent(btnhapus)
+                        .addGap(48, 48, 48)
+                        .addComponent(btnreset))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(id_user, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(id_karyawan, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nama_karyawan, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(id_karyawan, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -206,7 +231,7 @@ public class Karyawan extends javax.swing.JFrame {
                     .addComponent(btnedit)
                     .addComponent(btnhapus)
                     .addComponent(btnreset))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -215,22 +240,38 @@ public class Karyawan extends javax.swing.JFrame {
  
     private void btntambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntambahActionPerformed
          // TODO add your handling code here:
-         
          try {
-            Connection en = DriverManager.getConnection("jdbc:mysql://localhost/db_apotek", "root", "");
-            en.createStatement().executeUpdate("insert into tb_karyawan values" + "('" + id_karyawan.getText() + "','" + id_user.getText() + "','" + nama_karyawan.getText() + "','" + email.getText() + "','" + no_tlp.getText() + "','" + alamat.getText() + "')");
-            tampilkan(); 
-        } catch (SQLException ex) {
+            Connection conn = connect.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("insert into tb_karyawan(id_karyawan,id_user, nama_karyawan, email,no_tlp,alamat) values(?,?,?,?,?,?)");
+            stmt.setString(1, id_karyawan.getText());
+            stmt.setString(2, id_user.getText());
+            stmt.setString(3, nama_karyawan.getText());
+            stmt.setString(4, email.getText());
+            stmt.setString(5, no_tlp.getText());
+            stmt.setString(6, alamat.getText());
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Data berhasil disimpan", "Pesan", JOptionPane.INFORMATION_MESSAGE);
+            tampilkan();
+        } catch (SQLException e) {                           
             JOptionPane.showMessageDialog(null, "Ada yang belum di isi ! !");
+            System.out.println(e.getMessage());    
         }
   
     }//GEN-LAST:event_btntambahActionPerformed
 
     private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
         try {
-            // TODO add your handling code here: 
-            Connection en = DriverManager.getConnection("jdbc:mysql://localhost/db_apotek", "root", "");
-            en.createStatement().executeUpdate("update into id_karyawan values" + "('" + id_user.getText() + "','" + nama_karyawan.getText() + "','" + email.getText() + "','" + no_tlp.getText() + "','" + alamat.getText() + "')");
+            // TODO add your handling code here:
+            Connection c = connect.getConnection();
+             PreparedStatement stmt = c.prepareStatement("update tb_karyawan set id_karyawan=?, id_user=?, nama_karyawan=?, email=?, no_tlp=?, alamat=?  where id_karyawan= ");
+            stmt.setString(1, id_karyawan.getText());
+            stmt.setString(2, id_user.getText());
+            stmt.setString(3, nama_karyawan.getText());
+            stmt.setString(4, email.getText());
+            stmt.setString(5, no_tlp.getText());
+            stmt.setString(6, alamat.getText());
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Pesan", JOptionPane.INFORMATION_MESSAGE);
             tampilkan();
         } catch (SQLException ex) {
             Logger.getLogger(Karyawan.class.getName()).log(Level.SEVERE, null, ex);
@@ -253,14 +294,27 @@ public class Karyawan extends javax.swing.JFrame {
 
     private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
         // TODO add your handling code here:
-        try {
-            Connection en = DriverManager.getConnection("jdbc:mysql://localhost/db_apotek", "root", "");
-            en.createStatement().executeLargeUpdate("delete from tb_karyawan where id_karyawan='" + id_karyawan.getText() + "'");
-            tampilkan();
-            reset();
-            } catch (SQLException ex) {
-            Logger.getLogger(Karyawan.class.getName()).log(Level.SEVERE, null, ex);
+        Connection conn = connect.getConnection();
+        int confirm = JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus data tersebut?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (confirm == 0) {
+            try {
+                java.sql.PreparedStatement stmt = conn.prepareStatement("delete from tb_karyawan where id_karyawan = '" + id_karyawan.getText() + "'");
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Data berhasil dihapus", "Pesan", JOptionPane.INFORMATION_MESSAGE);
+                tampilkan();
+                id_karyawan.setText("");
+                id_user.setText("");
+                nama_karyawan.setText("");
+                email.setText("");
+                no_tlp.setText("");
+                alamat.setText("");
+                id_karyawan.requestFocus();
+            } 
+            catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Data gagal di hapus" + e.getMessage(), "Pesan", JOptionPane.ERROR_MESSAGE);
+            }
         }
+            tampilkan();
     }//GEN-LAST:event_btnhapusActionPerformed
 
     private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
@@ -275,24 +329,11 @@ public class Karyawan extends javax.swing.JFrame {
             no_tlp.setText("");
             alamat.setText("");
     }//GEN-LAST:event_btnresetActionPerformed
-    private void tampilkan() {
-        int row = table.getRowCount();
-        for (int a = 0; a < row; a++) {
-            model.removeRow(0);
-        }
-        try {
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/db_apotek", "root", "");
-            ResultSet rs = cn.createStatement().executeQuery("SELECT * FROM tb_karyawan");
-            while (rs.next()) {
-                String data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};
-                model.addRow(data);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Karyawan.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
-    }
-    
+    private void no_tlpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no_tlpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_no_tlpActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -344,12 +385,30 @@ public class Karyawan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nama_karyawan;
     private javax.swing.JTextField no_tlp;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 
+    private void tampilkan() {
+        int row = table.getRowCount();
+        for (int a = 0; a < row; a++) {
+            model.removeRow(0);
+        }
+        try {
+            Connection en = DriverManager.getConnection("jdbc:mysql://localhost/db_apotek", "root", "");
+            ResultSet rs = en.createStatement().executeQuery("SELECT * FROM tb_karyawan");
+            while (rs.next()) {
+                String data[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)};
+                model.addRow(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Karyawan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
 }
 
