@@ -132,7 +132,6 @@ public class Penjualan extends javax.swing.JFrame {
         jTable.setModel(model);
         
         model.addColumn("No Transaksi");
-        model.addColumn("Karyawan");
         model.addColumn("Tanggal");
         model.addColumn("Nama Obat");
         model.addColumn("Jumlah");
