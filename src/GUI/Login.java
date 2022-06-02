@@ -238,10 +238,10 @@ public class Login extends javax.swing.JFrame {
                 if (pass_db.equalsIgnoreCase(Encryp.MD5(pass))) {
                      //go to home
                       JOptionPane.showMessageDialog(rootPane,"Login Berhasil");
-                     Home hm =new Home();
-                     hm.setVisible(true);
-                     hm.pack();
-                     hm.setLocationRelativeTo(null);
+                     mainView mv =new mainView();
+                     mv.setVisible(true);
+                     mv.pack();
+                     mv.setLocationRelativeTo(null);
                      this.dispose();
                 }else{
                     JOptionPane.showMessageDialog(rootPane,"Password Salah");

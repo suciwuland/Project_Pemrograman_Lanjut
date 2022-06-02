@@ -40,15 +40,15 @@
 	<title>
 		<band height="136" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="0" width="164" height="126" uuid="b178a828-4b66-4668-a3aa-9876d5cfd9a7"/>
-				<imageExpression><![CDATA["logo.png"]]></imageExpression>
+				<reportElement x="122" y="0" width="65" height="74" uuid="b178a828-4b66-4668-a3aa-9876d5cfd9a7"/>
+				<imageExpression><![CDATA["farmasi.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement style="Title" x="198" y="0" width="335" height="62" uuid="016a562c-a428-4ced-a5a7-d7a911735e52"/>
+				<reportElement style="Title" x="198" y="0" width="397" height="62" uuid="016a562c-a428-4ced-a5a7-d7a911735e52"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[Apotek Berkah]]></text>
+				<text><![CDATA[Apotek Guardian]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="SubTitle" x="303" y="62" width="196" height="22" uuid="b00327b6-69ad-428e-ae11-02ef2cd212c4"/>
@@ -57,6 +57,23 @@
 				</textElement>
 				<text><![CDATA[Laporan Penjualan]]></text>
 			</staticText>
+			<elementGroup/>
+			<staticText>
+				<reportElement x="226" y="86" width="73" height="20" uuid="9938bac7-42c8-462f-90c4-0239483d341a"/>
+				<text><![CDATA[Dari tanggal :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="299" y="86" width="100" height="20" uuid="d064a14a-beec-46e1-9fe4-8adac7b3415d"/>
+				<textFieldExpression><![CDATA[$F{tgl1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="399" y="86" width="46" height="20" uuid="52372de0-7550-4b7b-97a4-adf40ee84cff"/>
+				<text><![CDATA[hingga ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="447" y="86" width="100" height="20" uuid="c02aacd9-8b06-4175-b607-d0c6f4e30898"/>
+				<textFieldExpression><![CDATA[$F{ftgl2}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -155,7 +172,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 				</textField>
-				<textField pattern="EEEEE dd MMMMM yyyy">
+				<textField pattern="EEE, d MMM yyyy HH:mm:ss Z">
 					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="8ea04567-4965-4419-baa6-a67744886043"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
