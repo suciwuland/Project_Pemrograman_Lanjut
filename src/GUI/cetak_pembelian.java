@@ -44,7 +44,7 @@ public class cetak_pembelian extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        buttonCetak = new javax.swing.JToggleButton();
         tgl1 = new com.toedter.calendar.JDateChooser();
         tgl2 = new com.toedter.calendar.JDateChooser();
 
@@ -68,11 +68,11 @@ public class cetak_pembelian extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Hingga:");
 
-        jToggleButton1.setBackground(new java.awt.Color(222, 160, 87));
-        jToggleButton1.setText("CETAK");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonCetak.setBackground(new java.awt.Color(222, 160, 87));
+        buttonCetak.setText("CETAK");
+        buttonCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                buttonCetakActionPerformed(evt);
             }
         });
 
@@ -96,7 +96,7 @@ public class cetak_pembelian extends javax.swing.JFrame {
                             .addGap(36, 36, 36)))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(73, 73, 73)
-                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -113,7 +113,7 @@ public class cetak_pembelian extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(tgl2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
-                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(81, Short.MAX_VALUE))
         );
 
@@ -158,10 +158,10 @@ public class cetak_pembelian extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void buttonCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCetakActionPerformed
         // TODO add your handling code here:
         JasperReport reports;
-        String path =".\\src\\GUI\\reportPenjualan.jasper";
+        String path =".\\src\\GUI\\report1.jasper";
             try {
                 reports = (JasperReport) JRLoader.loadObject(path);
                 JasperPrint jprint = JasperFillManager.fillReport(path, null, getConnection());
@@ -172,7 +172,7 @@ public class cetak_pembelian extends javax.swing.JFrame {
                 Logger.getLogger(cetak_pembelian.class.getName()).log(Level.SEVERE, null, ex);
             }
         
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_buttonCetakActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,13 +210,13 @@ public class cetak_pembelian extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton buttonCetak;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JToggleButton jToggleButton1;
     private com.toedter.calendar.JDateChooser tgl1;
     private com.toedter.calendar.JDateChooser tgl2;
     // End of variables declaration//GEN-END:variables

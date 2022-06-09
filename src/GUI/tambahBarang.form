@@ -116,12 +116,10 @@
                       <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="cair" min="-2" pref="85" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="tablet" alignment="0" max="32767" attributes="0"/>
-                              <Component id="kapsul" pref="85" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="tablet" alignment="0" max="32767" attributes="0"/>
+                          <Component id="kapsul" pref="85" max="32767" attributes="0"/>
                           <Component id="sirup" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
-                          <Component id="kd_obat1" alignment="0" pref="163" max="32767" attributes="0"/>
+                          <Component id="kd_obat" alignment="0" pref="163" max="32767" attributes="0"/>
                           <Component id="nama_obat" alignment="0" max="32767" attributes="0"/>
                           <Component id="satuan" alignment="0" max="32767" attributes="0"/>
                           <Component id="harga" alignment="0" max="32767" attributes="0"/>
@@ -144,7 +142,7 @@
                       <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <Component id="kd_obat1" min="-2" max="-2" attributes="0"/>
+                          <Component id="kd_obat" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -207,7 +205,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sirupActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="kd_obat1">
+            <Component class="javax.swing.JTextField" name="kd_obat">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
@@ -270,6 +268,7 @@
                 <Property name="text" type="java.lang.String" value="TAMBAH"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tambah1MouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tambah1ActionPerformed"/>
               </Events>
             </Component>

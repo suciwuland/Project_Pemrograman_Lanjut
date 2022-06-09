@@ -5,14 +5,23 @@
  */
 
 package GUI;
+import Code.connect;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author ASUS
  */
 public class tambahBarang extends javax.swing.JFrame {
-
-    /**
+    public Statement stat;
+    public ResultSet rs;  
+    public PreparedStatement pst;/**
      * Creates new form tambahBarang
      */
     public tambahBarang() {
@@ -32,7 +41,7 @@ public class tambahBarang extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         sirup = new javax.swing.JRadioButton();
-        kd_obat1 = new javax.swing.JTextField();
+        kd_obat = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         nama_obat = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -91,6 +100,11 @@ public class tambahBarang extends javax.swing.JFrame {
         });
 
         tambah1.setText("TAMBAH");
+        tambah1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tambah1MouseClicked(evt);
+            }
+        });
         tambah1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tambah1ActionPerformed(evt);
@@ -121,11 +135,10 @@ public class tambahBarang extends javax.swing.JFrame {
                 .addGap(62, 62, 62)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cair, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(tablet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(kapsul, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+                    .addComponent(tablet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(kapsul, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
                     .addComponent(sirup, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(kd_obat1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                    .addComponent(kd_obat, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                     .addComponent(nama_obat)
                     .addComponent(satuan)
                     .addComponent(harga)
@@ -144,7 +157,7 @@ public class tambahBarang extends javax.swing.JFrame {
                 .addGap(53, 53, 53)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(kd_obat1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(kd_obat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -250,6 +263,43 @@ public class tambahBarang extends javax.swing.JFrame {
            
     }//GEN-LAST:event_kembaliActionPerformed
 
+    private void tambah1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tambah1MouseClicked
+        // TODO add your handling code here:
+        String buttonGroup1 = null;
+            if(tablet.isSelected()){
+                buttonGroup1="tablet";
+            }else if(kapsul.isSelected()){
+                buttonGroup1="kapsul";
+            }else if(cair.isSelected()){
+                buttonGroup1="cair";
+            }else if(sirup.isSelected()){
+                buttonGroup1="sirup";
+            }
+        try {
+            
+            Connection conn = connect.getConnection();
+            String SQL ="insert into tb_barang values('"
+                +kd_obat.getText()
+                +"','"+nama_obat.getText()
+                +"','"+satuan.getText()
+                +"','"+buttonGroup1
+                +"','"+harga.getText()
+                +"','"+stok.getText()+"')";
+            pst=conn.prepareStatement(SQL);
+            pst.execute();
+             JOptionPane.showMessageDialog(null,"Data Berhasil Ditambahkan");
+             mainView mv = new mainView();
+         mv.pindah_panelBrg();
+            mv.setVisible(true);
+            mv.pack();
+            mv.setLocationRelativeTo(null);
+            this.dispose();
+             
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Data Gagal Ditambahkan");
+        }
+    }//GEN-LAST:event_tambah1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -298,7 +348,7 @@ public class tambahBarang extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton kapsul;
-    private javax.swing.JTextField kd_obat1;
+    private javax.swing.JTextField kd_obat;
     private javax.swing.JButton kembali;
     private javax.swing.JTextField nama_obat;
     private javax.swing.JTextField satuan;
